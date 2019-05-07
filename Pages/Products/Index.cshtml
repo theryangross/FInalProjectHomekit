@@ -1,0 +1,118 @@
+@page "{searchString?}"
+@model FInalProjectHomekit.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form>
+    <p>
+        <!-- Bring in sort order drop down list -->
+        <select id="sortOrder" name="sortOrder" asp-items="Model.SortList">
+            <option value="">sort by...</option>
+        </select>
+        <select asp-for="ProductCategory" asp-items="Model.Categories">
+            <option value="">All</option>
+        </select>
+        Product Name: <input type="text" asp-for="SearchString" />
+
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.ProductNameSort">
+                    @Html.DisplayNameFor(model => model.Product[0].ProductName)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PriceSort">
+                    @Html.DisplayNameFor(model => model.Product[0].ProductPrice)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Brand)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ProductID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ProductID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ProductID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<hr />
+@{
+    // If current PageNum is 1, disable previous button
+    var prevDisabled = Model.PageNum <= 1 ? "disabled" : "";
+    var nextDisabled = Model.PageNum >= Model.TotalPages ? "disabled" : "";
+
+    // Calculate values for "Showing 1 to 10 of 101 entries"
+    var lastEntry = Model.PageNum * Model.PageSize; 
+    var firstEntry = lastEntry - Model.PageSize + 1;
+    lastEntry = lastEntry > Model.TotalCount ? Model.TotalCount : lastEntry;
+}
+<div class="row">
+    <div class="col-md">Showing @firstEntry to @lastEntry of @Model.TotalCount entries.</div>
+    <div class="col-md">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                <li class="page-item mx-1 @prevDisabled">
+                    <!-- This is the key code. asp-route-PageNum. Previous subtracts 1 page -->
+                    <!-- add asp-route-sortOrder so sortOrder is retained when moving pages -->
+                    <a class="page-link" asp-page="./Index" 
+                       asp-route-PageNum="@(Model.PageNum - 1)"
+                       asp-route-sortOrder="@Model.CurrentSort">Previous
+                    </a>
+                </li>
+                <li class="page-item mx-1 @nextDisabled">
+                    <a class="page-link" asp-page="./Index" 
+                       asp-route-PageNum="@(Model.PageNum + 1)"
+                       asp-route-sortOrder="@Model.CurrentSort">Next
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -19,7 +19,7 @@ namespace FInalProjectHomekit.Models
         public string CategoryName { get; set; }
         public Category Category { get; set; }  // Nav. Each Product has one Category
 
-        public int BrandID { get; set; }
+        public string BrandID { get; set; }
         public Brand Brand { get; set; }   // Nav. Each Product has one Brand
     }
 }
