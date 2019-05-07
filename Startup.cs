@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using FInalProjectHomekit.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FInalProjectHomekit
 {
@@ -31,6 +33,8 @@ namespace FInalProjectHomekit
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<HomekitDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("HomekitContext")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

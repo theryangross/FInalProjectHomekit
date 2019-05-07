@@ -16,9 +16,10 @@ namespace FInalProjectHomekit.Models
         public string ProductPrice { get; set; }
         
         public int CategoryID { get; set; }   // FK
-        public List<Category> Categories { get; set; }  // Nav. Each Product has one Category
+        public string CategoryName { get; set; }
+        public Category Category { get; set; }  // Nav. Each Product has one Category
 
         public int BrandID { get; set; }
-        public List<Brand> Brands { get; set; }   // Nav. Each Product has one Brand
+        public Brand Brand { get; set; }   // Nav. Each Product has one Brand
     }
 }
