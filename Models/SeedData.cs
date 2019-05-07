@@ -71,7 +71,8 @@ namespace FInalProjectHomekit.Models
                 );
                 context.SaveChanges();
 
-                // Look for Categories
+
+                // Look for Brands
                 if (context.Brand.Any())
                 {
                     return;   // DB has been seeded
@@ -213,6 +214,8 @@ namespace FInalProjectHomekit.Models
                 );
                 context.SaveChanges();
                 
+
+                // Look for Products
                  if (context.Product.Any())
                 {
                     return;
