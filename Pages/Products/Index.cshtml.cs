@@ -29,7 +29,7 @@ namespace FInalProjectHomekit.Pages.Products
         [BindProperty(SupportsGet = true)]
         public string CurrentSort {get; set;}
         public SelectList SortList {get; set;}
-        public string CategoryName {get; set;}
+        
 
         public async Task OnGetAsync()
         {
@@ -55,10 +55,10 @@ namespace FInalProjectHomekit.Pages.Products
                     query = query.OrderByDescending(r => r.ProductName);
                     break;
                 case "CN_asc":
-                    query = query.OrderBy(r => r.CategoryName);
+                    query = query.OrderBy(r => r.Category);
                     break;
                 case "CN_desc":
-                    query = query.OrderByDescending(r => r.CategoryName);
+                    query = query.OrderByDescending(r => r.Category);
                     break;
                 case "Price_asc":
                     query = query.OrderBy(r => r.ProductPrice);

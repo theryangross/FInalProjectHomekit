@@ -7,12 +7,14 @@ namespace FInalProjectHomekit.Models
 {
     public class Brand
     {
-        public int BrandID { get; set; }
+        public int BrandID { get; set; }    // PK
         
-        [Display(Name="Brand Name")]
+        [Required]
+        [Display(Name="Brand")]
         public string BrandName { get; set; }
         
         public int ProductID { get; set; }  // FK
+        
         public List<Product> Products { get; set; }   // Nav. Each Brand can have one or many Products
     }
 }

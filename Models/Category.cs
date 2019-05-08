@@ -7,9 +7,10 @@ namespace FInalProjectHomekit.Models
 {
     public class Category
     {
-        public int CategoryID { get; set; }
+        public int CategoryID { get; set; } // PK
         
-        [Display(Name="Category Name")]
+        [Required]
+        [Display(Name="Category")]
         public string CategoryName { get; set; }
         
         public List<Product> Products { get; set; }   // Nav. Each Category can have one or many Products
